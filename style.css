@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 40px;
+    border-bottom: 4px solid black;
+    background-color: #edf6f9;
+    text-decoration: underline;
+    padding: 10px;
+}
+
+body {
+    background-color: #ffddd2;
+    text-align: center;
+}
+
+.container {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game {
+    height: 60vmin;
+    width: 60vmin;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5vmin;
+}
+
+.box {
+    height: 18vmin;
+    width: 18vmin;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+    font-size: 8vmin;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.box:hover {
+    background-color: rgb(236, 211, 211);
+
+}
+
+#reset {
+    padding: 1rem;
+    font-size: 1rem;
+    background-color: rgb(243, 127, 146);
+    border: 2px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#reset:hover {
+    background-color: rgb(247, 72, 101);
+}
+
+#newgame {
+    padding: 1rem;
+    font-size: 1rem;
+    background-color: rgb(243, 127, 146);
+    border: 2px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#newgame:hover{
+    background-color: rgb(247, 72, 101);
+}
+
+#msg{
+    color:black;
+    font-size: 5vmin;
+}
+
+.msg-container{
+    height: 100vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    flex-direction: column;
+}
+
+.hide{
+    display: none;
+}
