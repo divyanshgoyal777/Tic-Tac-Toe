@@ -1,99 +1,74 @@
-let boxes = document.querySelectorAll(".box");
-let resetbtn = document.querySelector("#reset");
-let newGameBtn = document.querySelector("#newgame");
-let msgContainer = document.querySelector(".msg-container");
-let msg = document.querySelector("#msg");
+document.addEventListener('DOMContentLoaded', function () {
+    const boxes = document.querySelectorAll('.box');
+    const resetButton = document.getElementById('reset');
+    const newGameButton = document.getElementById('newgame');
+    const msgContainer = document.querySelector('.msg-container');
+    const msgText = document.getElementById('msg');
 
-let turnO = true;
-let count = 0;
+    let currentPlayer = 'X';
+    let gameBoard = ['', '', '', '', '', '', '', '', ''];
+    let gameOver = false;
 
-const winPatterns = [
-    [0, 1, 2],
-    [0, 3, 6],
-    [0, 4, 8],
-    [1, 4, 7],
-    [2, 5, 8],
-    [2, 4, 6],
-    [3, 4, 5],
-    [6, 7, 8],
-];
+    function checkWinner() {
+        const winningCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
 
-boxes.forEach((box) => {
-    box.addEventListener("click", () => {
-        if (turnO) {    //Player O
-            box.innerText = "O";
-            box.style.color = "blue"
-            turnO = false;
+        for (const combo of winningCombos) {
+            const [a, b, c] = combo;
+            if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+                return gameBoard[a];
+            }
         }
-        else {
-            box.innerText = "X";    //Player X
-            box.style.color = "orange"
-            turnO = true;
-        }
-        box.disabled = true;
 
-        checkWinner();
-    });
-});
-
-const disableBoxes = () => {
-    for (let box of boxes) {
-        box.disabled = true;
+        return null;
     }
-}
 
-const enableBoxes = () => {
-    for (let box of boxes) {
-        box.disabled = false;
-        box.innerText = ""
+    function checkDraw() {
+        return !gameBoard.includes('');
     }
-};
 
-const showWinner = (winner) => {
-    msg.innerText = `Congratulations, Winner is ${winner}`;
-    msgContainer.classList.remove("hide");
-    disableBoxes();
-};
+    function updateBoard(index) {
+        if (!gameOver && gameBoard[index] === '') {
+            gameBoard[index] = currentPlayer;
+            boxes[index].textContent = currentPlayer;
 
-const resetGame = () => {
-    turnO = true;
-    enableBoxes();
-    msgContainer.classList.add("hide");
-}
-
-const checkWinner = () => {
-    for (pattern of winPatterns) {
-        // console.log(pattern[0], pattern[1], pattern[2])
-        // console.log(
-        //     boxes[pattern[0]].innerText,
-        //     boxes[pattern[1]].innerText,
-        //     boxes[pattern[2]].innerText,
-        //     );
-        let pos1Val = boxes[pattern[0]].innerText;
-        let pos2Val = boxes[pattern[1]].innerText;
-        let pos3Val = boxes[pattern[2]].innerText;
-
-        if (pos1Val != "" && pos2Val != "" && pos3Val != "") {
-            if (pos1Val === pos2Val && pos2Val === pos3Val) {
-                showWinner(pos1Val);
-
+            const winner = checkWinner();
+            if (winner) {
+                msgText.textContent = `Player ${winner} wins!`;
+                msgContainer.classList.remove('hide');
+                gameOver = true;
+            } else if (checkDraw()) {
+                msgText.textContent = "It's a draw!";
+                msgContainer.classList.remove('hide');
+                gameOver = true;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             }
         }
     }
-}
 
+    function resetGame() {
+        gameBoard = ['', '', '', '', '', '', '', '', ''];
+        boxes.forEach(box => (box.textContent = ''));
+        currentPlayer = 'X';
+        gameOver = false;
+        msgContainer.classList.add('hide');
+    }
 
-boxes.forEach(element => {
-    element.addEventListener("click", function() {
-        count++;
-        if (count === 9) {
-            let drawMsg = document.querySelector("#msg");
-            drawMsg.innerText = "It's a DRAW";
-            msgContainer.classList.remove("hide");
-            disableBoxes();
-        }
+    boxes.forEach((box, index) => {
+        box.addEventListener('click', function () {
+            updateBoard(index);
+        });
     });
-});
 
-newGameBtn.addEventListener("click", resetGame);
-reset.addEventListener("click", resetGame); 
+    resetButton.addEventListener('click', resetGame);
+    newGameButton.addEventListener('click', resetGame);
+});
