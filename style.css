@@ -5,15 +5,17 @@
 }
 
 h1 {
+    width: 50%;
     font-size: 40px;
     border-bottom: 4px solid black;
+    border-radius: 20px;
+    margin-top: 10px;
     background-color: #edf6f9;
-    text-decoration: underline;
     padding: 10px;
 }
 
 body {
-    background-color: #ffddd2;
+    background-color: #817e7e;
     text-align: center;
 }
 
@@ -42,25 +44,24 @@ body {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
     font-size: 8vmin;
     cursor: pointer;
-    background-color: #ffffff;
+    background-color: #dfd9d9;
 }
 
 .box:hover {
-    background-color: rgb(236, 211, 211);
-
+    background-color: rgb(158, 158, 158);
 }
 
 #reset {
     padding: 1rem;
     font-size: 1rem;
-    background-color: rgb(243, 127, 146);
+    background-color: rgb(255, 255, 255);
     border: 2px solid black;
     border-radius: 20px;
     cursor: pointer;
 }
 
 #reset:hover {
-    background-color: rgb(247, 72, 101);
+    background-color: rgb(100, 100, 100);
 }
 
 #newgame {
